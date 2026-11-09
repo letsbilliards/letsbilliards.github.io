@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lets Billiards</title>
+<meta name="description" content="Android apps by Lets Billiards: MagnaBurst and Lets Billiards Scoreboard Pro.">
+<link rel="icon" href="magnaburst.png">
+<style>
+  :root {
+    --bg: #0b1218;
+    --card: #141d26;
+    --line: #26343f;
+    --text: #eef3f6;
+    --muted: #9aabb7;
+    --mint: #5cf2d6;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    line-height: 1.5;
+  }
+  main { max-width: 640px; margin: 0 auto; padding: 40px 16px 32px; }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 28px; }
+  h1 { margin: 0; font-size: 26px; }
+  .lang { display: flex; gap: 4px; }
+  .lang button {
+    background: none; border: 1px solid var(--line); color: var(--muted);
+    border-radius: 8px; padding: 6px 12px; font: inherit; font-size: 14px; cursor: pointer;
+  }
+  .lang button[aria-pressed="true"] { color: var(--mint); border-color: var(--mint); }
+  .app {
+    display: flex; gap: 16px; align-items: flex-start;
+    background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+    padding: 16px; margin-bottom: 12px;
+  }
+  .app img { width: 72px; height: 72px; border-radius: 16px; flex: none; }
+  h2 { margin: 0 0 4px; font-size: 18px; }
+  .app p { margin: 0 0 10px; color: var(--muted); font-size: 15px; }
+  .links { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 15px; }
+  a { color: var(--mint); text-decoration: none; }
+  a:hover, a:focus { text-decoration: underline; }
+  footer { margin-top: 28px; color: var(--muted); font-size: 14px; }
+  footer p { margin: 0 0 4px; }
+  /* 언어별 글: 스크립트가 없으면 영어만 보임 */
+  html[lang="en"] [data-ko], html[lang="ko"] [data-en] { display: none; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Lets Billiards</h1>
+    <div class="lang">
+      <button type="button" data-set="ko" aria-pressed="false">한국어</button>
+      <button type="button" data-set="en" aria-pressed="true">English</button>
+    </div>
+  </header>
+
+  <section class="app">
+    <img src="magnaburst.png" alt="">
+    <div>
+      <h2 data-ko>마그나버스트: 자석 퍼즐</h2>
+      <h2 data-en>MagnaBurst: Magnet Puzzle</h2>
+      <p data-ko>자석 탄환으로 동굴을 깨끗하게 청소하는 한 손 물리 퍼즐 게임.</p>
+      <p data-en>A one-handed physics puzzle: clean the caves with magnetic shots.</p>
+      <div class="links">
+        <a href="https://play.google.com/store/apps/details?id=com.lets.magnaburst">Google Play</a>
+        <a href="https://letsbilliards.blogspot.com/2026/10/privacy-policy-for-magnaburst.html"><span data-ko>개인정보처리방침</span><span data-en>Privacy Policy</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="app">
+    <img src="billiards-pro.png" alt="">
+    <div>
+      <h2 data-ko>Lets 당구 점수판 Pro</h2>
+      <h2 data-en>Lets Billiards Scoreboard Pro</h2>
+      <p data-ko>당구 경기의 점수를 기록하는 점수판 앱.</p>
+      <p data-en>A scoreboard app for keeping score in billiards games.</p>
+      <div class="links">
+        <a href="https://play.google.com/store/apps/details?id=com.lets.billiards_score_board_pro">Google Play</a>
+        <a href="https://letsbilliards.blogspot.com/2026/09/privacy-policy-for-lets-billiards-score.html"><span data-ko>개인정보처리방침</span><span data-en>Privacy Policy</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 무료판은 한국에만 게시 — 한국어 화면에만 보임 -->
+  <section class="app" data-ko>
+    <img src="billiards.png" alt="">
+    <div>
+      <h2>Lets 당구 점수판</h2>
+      <p>당구 점수판 앱의 무료 버전 (한국).</p>
+      <div class="links">
+        <a href="https://play.google.com/store/apps/details?id=com.lets.billiards_score_board">Google Play</a>
+        <a href="https://letsbilliards.blogspot.com/2023/11/lets-billiards-scoreboard.html">개인정보처리방침</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p><span data-ko>문의</span><span data-en>Contact</span>: <a href="mailto:letsbilliards@gmail.com">letsbilliards@gmail.com</a></p>
+    <p>Copyright © Lets Billiards.</p>
+  </footer>
+</main>
+<script>
+  function setLang(lang) {
+    document.documentElement.lang = lang;
+    document.querySelectorAll('.lang button').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.set === lang));
+    });
+  }
+  document.querySelectorAll('.lang button').forEach(function (b) {
+    b.addEventListener('click', function () { setLang(b.dataset.set); });
+  });
+  setLang((navigator.language || 'en').toLowerCase().indexOf('ko') === 0 ? 'ko' : 'en');
+</script>
+</body>
+</html>
